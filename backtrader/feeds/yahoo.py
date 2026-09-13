@@ -268,7 +268,10 @@ class YahooFinanceData(YahooFinanceCSVData):
 
         crumb = None
         sess = requests.Session()
-        sess.headers['User-Agent'] = 'backtrader'
+        sess.headers.update({
+            'User-Agent': 'backtrader',
+            'Accept-Encoding': 'identity',
+        })
         for i in range(self.p.retries + 1):  # at least once
             resp = sess.get(url, **sesskwargs)
             if resp.status_code != requests.codes.ok:
